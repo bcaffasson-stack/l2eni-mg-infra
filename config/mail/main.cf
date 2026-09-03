@@ -1,0 +1,56 @@
+# ====================================================
+# Configuration Postfix pour L2ENI
+# ====================================================
+
+# --- Identite ---
+myhostname = mail.l2eni.mg
+mydomain = l2eni.mg
+myorigin = $mydomain
+
+# --- Reseau ---
+# mynetworks : les reseaux qui ont le droit d'envoyer du mail
+# 127.0.0.0/8 = local, 192.168.0.0/16 = reseau local
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.0.0/16 10.0.0.0/8
+inet_interfaces = all
+inet_protocols = all
+
+# --- TLS (chiffrement SSL) ---
+smtpd_tls_cert_file = /etc/ssl/l2eni/mail.l2eni.mg.crt
+smtpd_tls_key_file = /etc/ssl/l2eni/mail.l2eni.mg.key
+smtpd_tls_security_level = may
+smtpd_tls_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtp_tls_security_level = may
+smtp_tls_CApath = /etc/ssl/certs
+
+# --- SASL via Dovecot ---
+# Postfix delegue l'authentification SMTP a Dovecot
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $mydomain
+
+# --- Restrictions d'acces ---
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_invalid_hostname,
+    reject_non_fqdn_hostname,
+    
+    reject_non_fqdn_recipient
+
+# --- Livraison via LMTP (Dovecot) ---
+virtual_transport = lmtp:unix:private/dovecot-lmtp
+
+# --- Domaines et utilisateurs (LDAP) ---
+virtual_mailbox_domains = l2eni.mg
+virtual_mailbox_maps = ldap:/etc/postfix/ldap_mailbox.cf
+virtual_alias_maps = ldap:/etc/postfix/ldap_alias.cf
+
+# --- Message d'erreur personnalise ---
+smtpd_banner = $myhostname ESMTP
+banner_readme = no
+mailbox_transport = lmtp:unix:private/dovecot-lmtp
+maillog_file = /var/log/mail.log

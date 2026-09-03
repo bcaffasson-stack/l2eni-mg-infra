@@ -1,0 +1,13 @@
+// === Zone directe l2eni.mg ===
+zone "l2eni.mg" {
+    type master;
+    file "/etc/bind/zones/db.l2eni.mg";
+    allow-query { any; };
+};
+
+// === Zone reverse 2.0.10.in-addr.arpa ===
+zone "2.0.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.2.0.10";
+    allow-query { any; };
+};

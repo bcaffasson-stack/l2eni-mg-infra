@@ -1,0 +1,33 @@
+# Secrets & certificats privés
+*.key
+*.pem
+server.crt
+ca.key
+server-key.pem
+
+# Fichiers temporaires
+*.tmp
+*.log
+*.pyc
+__pycache__/
+*.tar.gz
+nss-*
+
+# Scripts de debug / configuration interne
+debug-*.py
+fix-*.py
+check-*.py
+test-*.py
+audit*.py
+restore-*.py
+verify-*.py
+deploy-fixes.py
+setup-each.py
+analyse-*.py
+nuclear-fix.py
+final-check.py
+get-configs.py
+
+# Fichiers locaux (PC)
+server.pem
+server-key.pem
