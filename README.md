@@ -97,6 +97,22 @@ Un projet qui installe **un serveur d'entreprise complet** sur une seule VM : un
 
 ---
 
+## 📸 Captures d'écran
+
+### Site web — `appli.l2eni.mg`
+
+![Site web L2ENI](01-appli-login.png)
+
+### Webmail — `webmail.l2eni.mg`
+
+![Webmail Roundcube](02-webmail-login.png)
+
+### Supervision — `monitoring.l2eni.mg`
+
+![Grafana monitoring](03-monitoring-login.png)
+
+---
+
 ## 📥 Installation sur votre propre VM
 
 ### Prérequis
@@ -181,7 +197,9 @@ l2eni-mg-infra/
 │   ├── monitoring/    ← Prometheus + Grafana + Alertmanager
 │   └── roundcube/     ← Config webmail
 ├── templates/         ← Thème dark webmail (login personnalisé)
-├── docs/              ← Documentation complète
+├── 01-appli-login.png      ← Capture du site web
+├── 02-webmail-login.png    ← Capture du webmail
+├── 03-monitoring-login.png ← Capture de la supervision
 └── README.md          ← Ce fichier
 ```
 
